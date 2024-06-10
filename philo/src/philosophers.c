@@ -6,11 +6,11 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/05/27 17:01:04 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:09:35 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
 
 int count = 0;
 pthread_mutex_t mutex;
@@ -27,9 +27,9 @@ void *foo(void * data)
 	}
 	return NULL;
 }
-#ifdef PHILOS
-#define PHILOS 3
-#endif
+// #ifdef PHILOS
+// #define PHILOS 3
+// #endif
 int main()
 {
 	pthread_mutex_init(&mutex, NULL);

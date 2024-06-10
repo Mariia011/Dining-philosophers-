@@ -6,7 +6,13 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/05/27 13:40:36 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:23:48 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/philosophers.h"
+
+void foo_foo()
+{
+	printf("HJG");
+}
