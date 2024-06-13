@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   play_safe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/10 17:23:48 by marikhac         ###   ########.fr       */
+/*   Created: 2024/06/13 19:31:55 by marikhac          #+#    #+#             */
+/*   Updated: 2024/06/13 19:32:30 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philosophers.h"
+#include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
 
-void foo_foo()
+void *safe_mutex_handle(t_mutex *mutext, t_code code)
 {
-	printf("HJG");
+
+}
+
+void *safe_malloc(size_t bytes)
+{
+	void *target;
+	target = malloc(bytes);
+	if(!target)
+		return(error_exit("Error with the allocation"));
+	return (target);
 }

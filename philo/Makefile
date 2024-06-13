@@ -1,16 +1,17 @@
 NAME = philo
 CC = gcc
 # -Wall -Wextra -Werror
-CFILES =                                                     osophers.c ./src/utils.c
-OBJS = $(CFILES:.c=.o)
+
+CFILES = $(wildcard src/*.c)
+OBJS = $(patsubst %.c, %.o, $(CFILES))
 
 all : $(NAME)
 
-$(NAME) : $(OBJS) Makefile
+$(NAME) : $(OBJS)
 	$(CC) $(OBJS) -o $@
 
-$(OBJS) : $(CFILES)
-	$(CC) $(CFILES)
+./src/%.o : ./src/%.c
+	$(CC) $< -c -o $@
 
 clean :
 	rm -f $(OBJS)
@@ -18,8 +19,8 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 
-re :
-	fclean all
+re : fclean all
+
 add : fclean
 	git add .
 	git commit -m "yay"
