@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/13 19:21:06 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:18:23 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,10 @@ struct	s_table
 };
 
 pthread_mutex_t mutex;
+
+int error_exit(char const *str);
+void *safe_mutex_handle(t_mutex *mutext, t_code code);
+
+
 
 #endif

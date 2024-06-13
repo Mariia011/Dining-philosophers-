@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/13 19:33:05 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:50:56 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,20 @@ void table_init(t_table *table, char **argv)
 
 
 
-
-
-
-void philo_init(t_table *table)
+static void data_init(t_table *table)
 {
+
+}
+
+void data_init(t_table *table)
+{
+	int i;
+
+	i = 0;
 	table->end_simulation = false;
-	table->philos = safe_malloc(philo_nbr);
-
-
+	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
+	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
+	while(i < table->philo_nbr)
 }
 
 int main(int argc, char **argv)
