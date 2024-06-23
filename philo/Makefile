@@ -1,5 +1,8 @@
 NAME = philo
 CC = gcc
+# BONUS = philo_bonus
+# PATH = /philo_bonus/main.c
+
 # -Wall -Wextra -Werror
 
 CFILES = $(wildcard src/*.c)
@@ -26,4 +29,7 @@ add : fclean
 	git commit -m "yay"
 	git push
 
-.PHONY : all clean fclean re add
+# bonus : $(BONUS)
+# $(BONUS) : $(CC) $(PATH)
+
+.PHONY : all clean fclean re add bonus

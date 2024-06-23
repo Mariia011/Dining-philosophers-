@@ -6,10 +6,10 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/14 12:58:54 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/23 16:51:04 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
 
-
+void start
