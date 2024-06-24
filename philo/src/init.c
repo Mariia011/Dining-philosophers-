@@ -6,30 +6,45 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/23 21:00:18 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:37:10 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
 
-// void end_dinner(t_terms *the_table)
-// {
-// 	free(forks);
-// 	free()
-// }
 
-philo_to_thread(t_terms *table)
+void *start_dinner(t_terms *table)
 {
-	int i = 0;
-	while(i < table->philos_nbr)
-	{
-		safe_thread_handle(table->philos[i].thread);
-		i++;
-	}
-
+	printf("hello philo nbr %d", table->philo_nbr);
+	return NULL;
 }
 
-void philo_init(t_terms *table)
+void end_dinner(t_terms *table)
+{
+	int i = 0;
+	while(i < table->philo_nbr)
+	{
+		free(&table->forks[i]);
+		// table->forks[i] = NULL;
+		free(&table->philos[i]);
+		// table->philos[i] = NULL;
+		i++;
+	}
+}
+
+static void philo_to_thread(t_terms *table)
+{
+	int i = 0;
+	while(i < table->philo_nbr)
+	{
+		safe_thread_handle(&table->philos[i].thread, &start_dinner, &table, CREATE);
+		i++;
+		printf("thread of philo %d has been created", i);
+	}
+	end_dinner(table);
+}
+
+static void philo_init(t_terms *table)
 {
 	int i = 0;
 	while(i < table->philo_nbr)
@@ -38,11 +53,11 @@ void philo_init(t_terms *table)
 		table->philos[i].is_full = false;
 		table->philos[i].meals_counter = 0;
 		table->philos[i].table = table;
-		table->philos[i].right_fork = table->forks[i];
-		table->philos[i].left_fork = table->forks[i + 1] % philo_nbr;
+		table->philos[i].right_fork = &table->forks[i];
+		table->philos[i].left_fork = &table->forks[i + 1 % table->philo_nbr] ;
 		i++;
 	}
-	philo_to_thread(&table->philos);
+	philo_to_thread(table->philos);
 }
 
 static void	data_init(t_terms *table)
@@ -59,7 +74,7 @@ static void	data_init(t_terms *table)
 		table->forks[i].fork_id = i + 1;
 		i++;
 	}
-	philo_init(&the_table);
+	philo_init(table);
 }
 
 void	terms_parse(t_terms *the_table, char **argv)
@@ -80,5 +95,5 @@ void	terms_parse(t_terms *the_table, char **argv)
 		the_table->nbr_limit_meals = ft_atol(argv[5]);
 	else
 		the_table->nbr_limit_meals = -1;
-	data_init(&the_table);
+	data_init(the_table);
 }

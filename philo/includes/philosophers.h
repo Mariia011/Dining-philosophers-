@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/23 20:59:57 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/24 16:33:36 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,9 @@ void					safe_thread_handle(pthread_t *thread,
 void					table_init(t_terms *table, char **argv);
 char					*valid_input(const char *str);
 long					ft_atol(const char *str);
+
+void end_dinner(t_terms *table);
+void	terms_parse(t_terms *the_table, char **argv);
+void *start_dinner(t_terms *table);
 
 #endif
