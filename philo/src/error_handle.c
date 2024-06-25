@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:31:55 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/24 15:51:35 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/25 21:16:20 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	thread_error(int status, t_code code)
 		error_exit("A deadlock was detected or the value of thread specifies the calling thread.");
 }
 
-void	safe_thread_handle(pthread_t *thread, void *(*foo)(void *), void *data,
+void	safe_thread_handle(pthread_t *thread, t_fptr foo, void *data,
 		t_code code)
 {
 	if (CREATE == code)
@@ -58,7 +58,7 @@ static void	handle_mutex_error(t_code code, int status)
 		error_exit("Mutex is locked");
 }
 
-void	*safe_mutex_handle(t_mtx *mutex, t_code code)
+void	safe_mutex_handle(t_mtx *mutex, t_code code)
 {
 	if (code == LOCK)
 		handle_mutex_error(pthread_mutex_lock(mutex), code);
@@ -69,7 +69,7 @@ void	*safe_mutex_handle(t_mtx *mutex, t_code code)
 	else if (code == DESTROY)
 		handle_mutex_error(pthread_mutex_destroy(mutex), code);
 	else
-		return(error_exit("Mutex was fucked up biatch"));
+		error_exit("Mutex was fucked up biatch");
 }
 
 void	*safe_malloc(size_t bytes)
@@ -78,6 +78,7 @@ void	*safe_malloc(size_t bytes)
 
 	target = malloc(bytes);
 	if (!target)
-		return (error_exit("Error with the allocation"));
+		error_exit("Error with the allocation");
 	return (target);
 }
+

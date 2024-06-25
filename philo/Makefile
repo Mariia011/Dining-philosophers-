@@ -11,7 +11,7 @@ OBJS = $(patsubst %.c, %.o, $(CFILES))
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -o $@
+	$(CC) $(OBJS) -fsanitize=address -o $@
 
 ./src/%.o : ./src/%.c
 	$(CC) $< -c -o $@
@@ -26,7 +26,7 @@ re : fclean all
 
 add : fclean
 	git add .
-	git commit -m "yay"
+	git commit -m "dvizheni"
 	git push
 
 # bonus : $(BONUS)

@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/24 16:48:39 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:49:33 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,25 @@ long	ft_atol(const char *str)
 	return (value);
 }
 
-
-char	*valid_input(const char *str)
+const char	*valid_input(const char *str)
 {
 	int	len;
 	int	i;
 
 	i = 0;
-	len = 0;
 	while ((str[i] >= 9) && (str[i] <= 13 || str[i] == 32))
 		i++;
 	if (str[i] == '+')
 		i++;
 	if (str[i] == '-')
 		error_exit("Positive values only");
+	len = i;
 	while (str[i])
 	{
-		if (str[i] < '0' && str[i] > '9')
+		if (str[i] < '0' || str[i] > '9')
 			error_exit("The value doesn't contain a numerical value");
 		i++;
-		len++;
 	}
-	if (len > 10)
-		error_exit("Value is bigger than INT_MAX");
-	return (str + i);
+	// printf("%s", str + len);
+	return (str + len);
 }
