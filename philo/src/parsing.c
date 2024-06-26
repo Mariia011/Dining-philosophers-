@@ -6,17 +6,11 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/25 16:49:33 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:36:25 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
-
-int	error_exit(char const *str)
-{
-	printf("%s", str);
-	exit(EXIT_FAILURE);
-}
 
 long	ft_atol(const char *str)
 {
@@ -55,6 +49,5 @@ const char	*valid_input(const char *str)
 			error_exit("The value doesn't contain a numerical value");
 		i++;
 	}
-	// printf("%s", str + len);
 	return (str + len);
 }

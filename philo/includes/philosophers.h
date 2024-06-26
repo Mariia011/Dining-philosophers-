@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/25 21:21:02 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:31:02 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ struct					s_terms
 	bool 				if_ready;
 	t_fork				*forks;
 	t_philo				*philos;
-	t_mtx				mtx;
+	t_mtx				table_mutex; // to avoid races while readinf data
 };
-
-
 
 enum					e_code
 {
@@ -95,21 +93,24 @@ enum					e_code
 	DETACH,
 };
 
-int						error_exit(char const *str);
 void					safe_mutex_handle(t_mtx *mutex, t_code code);
 void					*safe_malloc(size_t bytes);
 void					safe_thread_handle(pthread_t *thread,
 							t_fptr foo, void *data, t_code code);
 void					table_init(t_terms *table, char **argv);
-const char					*valid_input(const char *str);
-long					ft_atol(const char *str);
+const char		*valid_input(const char *str);
+long			ft_atol(const char *str);
 
 
 void shift_flag(t_mtx *mtx, bool *dest, const bool src);
 
+void		end_dinner(t_terms *table);
+void		*start_dinner(void *data);
+void		terms_parse(t_terms *the_table, char **argv);
 
-void end_dinner(t_terms *table);
-void	terms_parse(t_terms *the_table, char **argv);
-void *start_dinner(void *data);
+int			error_exit(char const *str);
+void		handle_mutex_error(int status, t_code code);
+void		thread_error(int status, t_code code);
+
 
 #endif
