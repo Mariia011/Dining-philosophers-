@@ -6,21 +6,30 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/26 15:29:53 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:53:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
 
+long get_time()
+{
+	struct timeval tv;
+	if (gettimeofday(&tv, NULL))
+		return(error_exit("Gettime failed"));
+	
+
+}
+
 static void	wait_till_all_ready(t_terms *table)
 {
 	while(false == table->if_ready);
-	gettimeofday(table->start_simulation);
+	if (gettimeofday(table->start_simulation));
 }
 
 static void take_a_fork(t_philo *philo)
 {
-	
+
 }
 
 void *start_dinner(void *data)

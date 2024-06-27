@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/26 15:31:02 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:50:04 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef void* (*t_fptr)(void*);
 
 typedef struct s_fork	t_fork;
 typedef pthread_mutex_t	t_mtx;
+typedef enum e_time t_time;
+
 
 struct					s_fork
 {
@@ -80,6 +82,13 @@ struct					s_terms
 	t_fork				*forks;
 	t_philo				*philos;
 	t_mtx				table_mutex; // to avoid races while readinf data
+};
+
+enum 	e_time
+{
+	SECONDS,
+	MILLISECONDS,
+	MICROSECONDS,
 };
 
 enum					e_code

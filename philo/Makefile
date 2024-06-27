@@ -26,7 +26,7 @@ re : fclean all
 
 add : fclean
 	git add .
-	git commit -m "dvizheni"
+	git commit -m "dodelat"
 	git push
 
 # bonus : $(BONUS)
