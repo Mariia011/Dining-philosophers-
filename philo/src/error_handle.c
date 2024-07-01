@@ -6,11 +6,11 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:31:55 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/26 14:52:58 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/01 20:43:53 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
+#include "../includes/philosophers.h"
 
 int	error_exit(char const *str)
 {
@@ -29,7 +29,8 @@ void	thread_error(int status, t_code code)
 	else if (EINVAL == status && (JOIN == code || DETACH == code))
 		error_exit("The value specified by thread is not joinable\n");
 	else if (ESRCH == status)
-		error_exit("No thread could be found corresponding to that specified by the given thread ID, thread.");
+		error_exit("No thread could be found corresponding to that specified by the given thread ID,
+			thread.");
 	else if (EDEADLK == status)
 		error_exit("A deadlock was detected or the value of thread specifies the calling thread.");
 }
@@ -50,7 +51,3 @@ void	handle_mutex_error(int status, t_code code)
 	else if (EBUSY == status)
 		error_exit("Mutex is locked");
 }
-
-
-
-

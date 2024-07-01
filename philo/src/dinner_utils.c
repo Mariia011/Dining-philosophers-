@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   dinner_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/01 14:14:39 by marikhac         ###   ########.fr       */
+/*   Created: 2024/07/01 14:32:41 by marikhac          #+#    #+#             */
+/*   Updated: 2024/07/01 20:57:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int	main(int argc, char **argv)
-{
-	t_terms			the_table;
 
-	if (argc != 5 && argc != 6)
-		return (error_exit("Wrong count of argc"));
-	terms_parse(&the_table, argv);
-	// start_dinner(&the_table);
-	end_dinner(&the_table);
-	return (EXIT_SUCCESS);
+static void	wait_till_all_ready(t_terms *table)
+{
+	while(false == table->if_ready)
+		;
+	if (gettimeofday(table->start_simulation))
+
 }
 

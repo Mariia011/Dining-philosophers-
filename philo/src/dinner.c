@@ -6,61 +6,88 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/06/27 17:53:43 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:02:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
+#include "../includes/philosophers.h"
 
-long get_time()
+static void	thinking(t_philo *philo)
 {
-	struct timeval tv;
-	if (gettimeofday(&tv, NULL))
-		return(error_exit("Gettime failed"));
-	
-
+	philo_status(THINK, philo);
 }
 
-static void	wait_till_all_ready(t_terms *table)
+static void	eat(t_philo *philo)
 {
-	while(false == table->if_ready);
-	if (gettimeofday(table->start_simulation));
+	__lock(&philo->right_fork->fork);
+	philo_status(TAKE_FORK, philo);
+	__lock(&philo->left_fork->fork);
+	philo_status(TAKE_FORK, philo);
+	philo->meal_counter++;
+	philo_status(EAT, philo);
+	ft_usleep(philo->table->time_to_eat, philo->table);
+	if (has_remained(&philo->table->times_each_eat)
+		&& philo->meal_counter == value(&philo->table->times_each_eat))
+		set_val(&(philo->mtx), &(philo->full), true);
+	__unlock(&philo->right_fork->fork);
+	__unlock(&philo->left_fork->fork);
 }
 
-static void take_a_fork(t_philo *philo)
+void	*dinner_simulation(void *data)
 {
+	t_philo	*philo;
+	int		i;
 
-}
-
-void *start_dinner(void *data)
-{
-	t_philo* philo = (t_philo*)data;
-	int i = 0;
-
+	philo = (t_philo *)data;
+	i = 0;
 	wait_till_all_ready(philo->table);
-	distribution(philo);
-
-	return NULL;
+	increase_active_threads(&philo->table->table_mutex,
+		&philo->table->active_threads);
+	distribution(philo->table);
+	while (!is_finished(philo->table))
+	{
+		if (is_full(philo))
+			break ;
+		eat(philo);
+	}
 }
 
-//module containing setters and getters
-
-void distribution(t_philo *philo)
+void	start_dinner(t_terms *table)
 {
-	if(!philo->id % 2)
+	int	i;
+
+	i = 0;
+	if (0 == table->philo_nbr)
+		return ;
+	if (1 == table->philo_nbr)
+		// todo
+		// maybe it should be here   philo_to thread(table);
+		while (i < table->philos[i])
+		{
+			__thread_join(&table->philos[i].thread);
+			i++;
+		}
+	__thread_create(&table->philos[i].thread_id, NULL, NULL);
+	return (NULL);
+}
+
+static void	take_a_fork(t_philo *philo)
+{
+}
+
+void	distribution(t_philo *philo)
+{
+	if (!philo->id % 2)
 	{
-		take_a_fork(philo, philo->right_fork);
-		// take_a_fork(philo, philo->left_fork);
-		shift_a_flag(philo->philo_mutex);
+		take_fork(philo, philo->right_fork);
+		shift_flag(philo->philo_mutex);
 	}
-	else if(philo->id % 2 != 0)
+	else if (philo->id % 2 != 0)
 	{
 		take_a_fork(philo, philo->left_fork);
-		// take_a_fork(philo, philo->right_fork);
-		shift_a_flag(philo->philo_mutex);
+		shift_flag(philo->philo_mutex);
 	}
 }
-
 
 // void end_dinner(t_terms *table)
 // {
