@@ -6,13 +6,13 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/01 21:06:29 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:51:52 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/marikhac/Desktop/philo/philo/includes/philosophers.h"
+#include "../includes/philosophers.h"
 
-long	ft_atol(const char *str)
+long	ft_atol(char *str)
 {
 	long	value;
 	int		i;
@@ -25,12 +25,12 @@ long	ft_atol(const char *str)
 		value += (value * 10) + (str[i] - '0');
 		i++;
 	}
-	if (value > INT_MAX)
+	if (value > INT_MAX || value < 0)
 		return (error_exit("an INT_MAX was the LIMIT"));
 	return (value);
 }
 
-char	*valid_input(const char *str)
+char	*valid_input(char *str)
 {
 	int	len;
 	int	i;

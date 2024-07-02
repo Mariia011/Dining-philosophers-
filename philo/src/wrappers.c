@@ -6,18 +6,11 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 21:16:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/01 16:52:34 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:12:27 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-void shift_flag(t_mtx *mtx, bool *dest, const bool src) //setters
-{
-	safe_mutex_handle(mtx, LOCK);
-	*dest = src;
-	safe_mutex_handle(mtx, UNLOCK);
-}
 
 void	*safe_malloc(size_t bytes)
 {

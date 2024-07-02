@@ -24,12 +24,12 @@ fclean : clean
 
 re : fclean all
 
-add : fclean
+oda : fclean
 	git add .
-	git commit -m "dodelat"
+	git commit -m "oda"
 	git push
 
 # bonus : $(BONUS)
 # $(BONUS) : $(CC) $(PATH)
 
-.PHONY : all clean fclean re add bonus
+.PHONY : all clean fclean re oda

@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:10:14 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/01 18:33:30 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:32:13 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static void	safe_thread_handle(pthread_t *thread, t_fptr foo, void *data,
 		error_exit("Wrong code for thread_handle: use <CREATE> <JOIN> <DETACH>");
 }
 
-void increase_active_threads(t_mtx *mutex, long *val)
+void increase_active_threads(t_mtx *mutex, int *val)
 {
 	__lock(mutex);
-	(*val)++; 
+	(*val)++;
 	__unlock(mutex);
 }
 
