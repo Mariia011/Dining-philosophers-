@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:30:49 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:02:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,27 @@
 
 static void	thinking(t_philo *philo)
 {
+	__lock(philo);
 	philo_status(THINK, philo);
+	ft_usleep(philo->table->time_to_sleep, philo->table);
+	__unlock(philo);
 }
 
-// TO DO
-static void	eat(t_philo *philo)
+static void sleep()
 {
-	__lock(&philo->right_fork->fork);
-	philo_status(TAKE_FORK, philo);
-	__lock(&philo->left_fork->fork);
-	philo_status(TAKE_FORK, philo);
-	philo->meal_counter++;
-	philo_status(EAT, philo);
-	ft_usleep(philo->table->time_to_eat, philo->table);
-	// if (has_remained(&philo->table->nbr_limit_meals)
-	// 	&& philo->meal_counter == get_any_val(&philo->table->nbr_limit_meals))
-	// 	set_val(&(philo->philo_mutex), &(philo->is_full), true);
-	__unlock(&philo->right_fork->fork);
-	__unlock(&philo->left_fork->fork);
+	__lock(philo);
+	philo_status(SLEEP, philo);
+	ft_usleep(philo->table->time_to_sleep, philo->table);
+	__unlock(philo);
 }
+
+void set_timeval(t_philo *philo, long *last_time)
+{
+	__lock(&philo->philo_mutex);
+	*last_time = get_time(MILLISECONDS);
+	__unlock(&philo->philo_mutex);
+}
+
 
 void	*dinner_simulation(void *data)
 {
@@ -48,8 +50,9 @@ void	*dinner_simulation(void *data)
 		if (is_full(philo))
 			break ;
 		eat(philo);
+		sleep(philo);
+		think(philo);
 	}
-
 	return NULL;
 }
 
@@ -62,34 +65,16 @@ void	start_dinner(t_terms *table)
 	while (i < table->philo_nbr)
 	{
 		__thread_create(&table->philos[i].thread, dinner_simulation, table->philos + i);
-		printf("thread of philo %d has been created\n", i + 1);
+		// printf("thread of philo %d has been created\n", i + 1);
 		i++;
 	}
 	shift_flag(&table->table_mutex, &table->if_ready, true);
-		while (i < table->philo_nbr)
-		{
-			__thread_join(&table->philos[i].thread);
-			i++;
-		}
+	while (i < table->philo_nbr)
+	{
+		__thread_join(&table->philos[i].thread);
+		i++;
+	}
 }
-
-// static void	take_a_fork(t_philo *philo)
-// {
-// }
-
-// void	distribution(t_philo *philo)
-// {
-// 	if (!philo->id % 2)
-// 	{
-// 		take_fork(philo, philo->right_fork);
-// 		shift_flag(philo->philo_mutex);
-// 	}
-// 	else if (philo->id % 2 != 0)
-// 	{
-// 		take_a_fork(philo, philo->left_fork);
-// 		shift_flag(philo->philo_mutex);
-// 	}
-// }
 
 // void end_dinner(t_terms *table)
 // {

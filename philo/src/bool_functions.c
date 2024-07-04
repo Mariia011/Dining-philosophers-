@@ -6,19 +6,11 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:56:49 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 14:35:26 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:55:46 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-// t_time get_time(t_mtx *mutex, t_time val)
-// {
-// 	t_time res;
-// 	__lock(&mutex);
-// 	res = val;
-// 	__unlock(&mutex);
-// }
 
 void shift_flag(t_mtx *mtx, bool *dest, const bool src) //setters
 {
@@ -34,6 +26,12 @@ void *get_any_val(t_mtx *mutex, void *src)
 	value = src;
 	__unlock(mutex);
 	return (value);
+}
+
+bool has_remained(int n)
+{
+	// return (n == 0 ) ? false : true;
+	return(n != 0);
 }
 
 bool	philo_died(t_philo *philo)

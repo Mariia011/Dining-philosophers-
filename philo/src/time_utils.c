@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:18:37 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:09:27 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:30:49 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void ft_usleep(t_time usec, t_terms *table)
 	t_time value;
 
 	value = get_time(MICROSECONDS);
+	
 	while(usec > (get_time(MICROSECONDS) - value) && !is_finished(table));
 }

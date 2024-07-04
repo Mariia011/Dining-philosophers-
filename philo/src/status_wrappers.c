@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:01:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:08:08 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:03:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	philo_status(t_code philo_status, t_philo *philo)
 	now = get_time(MILLISECONDS) - philo->table->start_simulation;
  	if (philo_status == TAKE_FORK)
 		printf("%ld philo %d has taken a fork", now, philo->id);
-
 	else if (EAT == philo_status)
 		__eat(philo, now);
 

@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:47:17 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:27:41 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,27 @@ static void	data_init(t_terms *table)
 
 void	terms_parse(t_terms *table, int argc, char **argv)
 {
-	// table->philo_nbr = ft_atol(argv[PHILO_NUMBER]);
+	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
 	table->philo_nbr = 3;
 	if (table->philo_nbr > PHILO_MAX)
 	{
 		printf("Maximum count of philos is %d\n", PHILO_MAX);
 		exit(EXIT_FAILURE);
 	}
-	// table->time_to_die = ft_atol(argv[TIME_TO_DIE]) * MILLISECONDS;
-	// table->time_to_eat = ft_atol(argv[TIME_TO_EAT]) * MILLISECONDS;
-	// table->time_to_sleep = ft_atol(argv[TIME_TO_SLEEP]) * MILLISECONDS;
+	table->time_to_die = ft_atolong(argv[TIME_TO_DIE]) * MILLISECONDS;
+	table->time_to_eat = ft_atolong(argv[TIME_TO_EAT]) * MILLISECONDS;
+	table->time_to_sleep = ft_atolong(argv[TIME_TO_SLEEP]) * MILLISECONDS;
 
-	table->time_to_die = 400000;
-	table->time_to_eat = 100000;
-	table->time_to_sleep = 100000;
-
-	// if (table->time_to_die < (TIME_MIN) || table->time_to_eat < (TIME_MIN)
-	// 	|| table->time_to_sleep < (TIME_MIN))
-	// {
-	// 	printf("%ld %ld %ld", table->time_to_eat, table->time_to_sleep,
-	// 		table->time_to_die);
-	// 	error_exit("Use timestamps major than 60 ms");
-	// }
-	// if (argc == 6)
-	// 	table->nbr_limit_meals = ft_atol(argv[COUNT_OF_MEALS]);
-	// else
+	if (table->time_to_die < (TIME_MIN) || table->time_to_eat < (TIME_MIN)
+		|| table->time_to_sleep < (TIME_MIN))
+	{
+		printf("%ld %ld %ld", table->time_to_eat, table->time_to_sleep,
+			table->time_to_die);
+		error_exit("Use timestamps major than 60 ms");
+	}
+	if (argc == 6)
+		table->nbr_limit_meals = ft_atolong(argv[COUNT_OF_MEALS]);
+	else
 		table->nbr_limit_meals = -1;
 	data_init(table);
 }

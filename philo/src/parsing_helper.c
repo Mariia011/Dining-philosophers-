@@ -6,13 +6,13 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:51:52 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:27:13 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-long	ft_atol(char *str)
+long	ft_atolong(char *str)
 {
 	long	value;
 	int		i;
