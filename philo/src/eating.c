@@ -6,11 +6,16 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/04 17:51:31 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:00:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+static bool	has_remained(int n)
+{
+	return (n != 0);
+}
 
 void	eat(t_philo *philo)
 {
@@ -33,8 +38,8 @@ void	eat(t_philo *philo)
 	philo_status(EAT, philo);
 	ft_usleep(philo->table->time_to_eat, philo->table);
 	//write a function to set a timestamp
-		set_timeval(&philo->table->last_meal_time);
-	if (has_remained(&philo->table->nbr_limit_meals))
+		set_timeval(&(philo->philo_mutex), &philo->last_meal_time);
+	if (has_remained(philo->table->nbr_limit_meals))
 		shift_flag(&(philo->philo_mutex), &(philo->is_full), true);
 	__unlock(&(forks[first]->fork));
 	__unlock(&(forks[second]->fork));

@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:37:04 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/05 19:37:44 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ int	main(int argc, char **argv)
 	// end_dinner(&the_table);
 	return (EXIT_SUCCESS);
 }
-

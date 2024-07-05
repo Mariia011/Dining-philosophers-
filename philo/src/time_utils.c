@@ -6,13 +6,13 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:18:37 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/04 16:30:49 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:02:14 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-long get_time(t_timecode time_code)
+long	get_time(t_timecode time_code)
 {
 	struct timeval	tv;
 
@@ -27,11 +27,11 @@ long get_time(t_timecode time_code)
 	return (-1);
 }
 
-void ft_usleep(t_time usec, t_terms *table)
+void	ft_usleep(t_time usec, t_terms *table)
 {
-	t_time value;
+	t_time	value;
 
 	value = get_time(MICROSECONDS);
-	
-	while(usec > (get_time(MICROSECONDS) - value) && !is_finished(table));
+	while (usec > (get_time(MICROSECONDS) - value) && !is_finished(table))
+		;
 }

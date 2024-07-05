@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/04 17:17:11 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:06:48 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ struct					s_terms
 };
 
 // boolean
-bool					philo_died(t_philo *philo);
-bool					is_full(t_philo *philo);
-bool					is_finished(t_terms *table);
+// bool					is_finished(t_terms *table);
 void					shift_flag(t_mtx *mtx, bool *dest, const bool src);
+bool					is_full(t_philo *philo);
+bool	is_finished(t_terms *table);
 
 // mutex wrappers
 void					__lock(t_mtx *mutex);
@@ -114,13 +114,17 @@ void					philo_to_thread(t_terms *table);
 void					terms_parse(t_terms *the_table, int argc, char **argv);
 
 // dinner helpers
-void					wait_till_all_ready(t_terms *table);
+// void					wait_till_all_ready(t_terms *table);
+void					*get_any_val(t_mtx *mutex, void *src);
+void					set_timeval(t_mtx *mutex, long *last_time);
 
 // dinner
-// void					end_dinner(t_terms *table);
+void					eat(t_philo *philo);
+
 void					start_dinner(t_terms *table);
 
 void					*dinner_simulation(void *data);
+void					*pahest_simulation(void *data);
 
 // thread wrappers
 void					increase_active_threads(t_mtx *mutex, int *val);
@@ -128,7 +132,7 @@ void					__thread_join(pthread_t *thread);
 void					__thread_detach(pthread_t *thread);
 void					__thread_create(pthread_t *thread, t_fptr foo,
 							void *data);
-//error handling
+// error handling
 int						error_exit(char const *str);
 void					handle_mutex_error(int status, t_code code);
 void					thread_error(int status, t_code code);
