@@ -6,7 +6,7 @@
 /*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 22:05:26 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:06:50 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	*pahest_simulation(void *data)
 				shift_flag(&table->table_mutex, &table->the_end, true);
 				philo_status(DIE, &table->philos[i]);
 			}
+			i++;
 		}
 	}
 	return (NULL);
