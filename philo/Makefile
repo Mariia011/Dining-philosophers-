@@ -5,15 +5,21 @@ CC = gcc
 
 # -Wall -Wextra -Werror
 
-CFILES = $(wildcard src/*.c)
-OBJS = $(patsubst %.c, %.o, $(CFILES))
+SRCSPATH = ./src/
+OBJSPATH = ./objs/
+
+CFILES = $(wildcard $(SRCSPATH)*.c)
+OBJS = $(patsubst $(SRCSPATH)%.c, $(OBJSPATH)%.o, $(CFILES))
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJSPATH) $(OBJS)
 	$(CC) $(OBJS) -o $@
 
-./src/%.o : ./src/%.c
+$(OBJSPATH) :
+	mkdir -p objs
+
+$(OBJSPATH)%.o : $(SRCSPATH)%.c
 	$(CC) $< -c -o $@
 
 clean :
