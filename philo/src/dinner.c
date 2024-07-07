@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/05 20:09:32 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:22:56 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ static void	think(t_philo *philo)
 
 static void	wait_till_all_ready(t_terms *table)
 {
-	while(false == get_any_val(&(table->table_mutex), table->if_ready))
-		;
+	
+	while(false == get_bool(&(table->table_mutex), table->if_ready))
+			;
 }
 
 void	set_timeval(t_mtx *mutex, long *last_time)
@@ -64,6 +65,7 @@ void	*dinner_simulation(void *data)
 	philo = (t_philo *)data;
 	i = 0;
 	wait_till_all_ready(philo->table);
+	
 	increase_active_threads(&philo->table->table_mutex,
 		&philo->table->active_threads);
 	__desynchro(philo);
@@ -89,14 +91,16 @@ void	start_dinner(t_terms *table)
 	{
 		__thread_create(&table->philos[i].thread, dinner_simulation,
 			table->philos + i);
-		// printf("thread of philo %d has been created\n", i + 1);
+		printf("thread philo %d created\n", i + 1);
 		i++;
 	}
 	 __thread_create(&(table->pahest), pahest_simulation, table);
+	 printf("pahest has been created");
 	shift_flag(&table->table_mutex, &table->if_ready, true);
 	while (i < table->philo_nbr)
 	{
 		__thread_join(&table->philos[i].thread);
+		printf("done\n");
 		i++;
 	}
 	shift_flag(&table->table_mutex, &table->the_end, true);

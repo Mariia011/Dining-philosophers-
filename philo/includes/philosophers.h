@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/05 20:06:48 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:49:14 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ struct					s_terms
 // bool					is_finished(t_terms *table);
 void					shift_flag(t_mtx *mtx, bool *dest, const bool src);
 bool					is_full(t_philo *philo);
-bool	is_finished(t_terms *table);
+bool					is_finished(t_terms *table);
+bool					get_bool(t_mtx *mutex, bool src);
+
 
 // mutex wrappers
 void					__lock(t_mtx *mutex);
@@ -111,7 +113,7 @@ char					*valid_input(char *str);
 
 // parsing
 void					philo_to_thread(t_terms *table);
-void					terms_parse(t_terms *the_table, int argc, char **argv);
+t_terms					*terms_parse(int argc, char **argv);
 
 // dinner helpers
 // void					wait_till_all_ready(t_terms *table);

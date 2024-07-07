@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/05 20:06:15 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:06:10 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ bool	is_finished(t_terms *table)
 	return (res);
 }
 
+bool all_threads_running(t_mtx *mutex, t_terms *table)
+{
+	__lock(mutex);
+	if(table->active_threads == table->philo_nbr)
+		return true;
+	__unlock(mutex);
+	return false;
+}
 
 void	*pahest_simulation(void *data)
 {
@@ -44,8 +52,8 @@ void	*pahest_simulation(void *data)
 	int i;
 
 	table = (t_terms *)data;
-	// while (!all_threads_running(&table->table_mutex, ))
-	// 	;
+	while (!all_threads_running(&table->table_mutex, table))
+		;
 	while (!is_finished(table))
 	{
 		i = 0;
