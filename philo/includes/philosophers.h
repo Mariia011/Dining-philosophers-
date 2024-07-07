@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 18:49:14 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:34:33 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ long					get_time(t_timecode time_code);
 void					ft_usleep(t_time usec, t_terms *table);
 // status
 void					philo_status(t_code philo_status, t_philo *philo);
+//destroys
+void table_destroy(t_terms **table_ptr);
 
 enum					e_timecode
 {

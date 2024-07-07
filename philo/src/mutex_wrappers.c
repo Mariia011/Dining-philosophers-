@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:10:25 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/01 20:43:59 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:20:43 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	mutex_init(t_mtx *mutex)
 
 void	mutex_destroy(t_mtx *mutex)
 {
-	safe_mutex_handle(mutex, INIT);
+	safe_mutex_handle(mutex, DESTROY);
 }
