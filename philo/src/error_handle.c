@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:31:55 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/02 16:35:41 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:19:20 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	error_exit(char const *str)
 {
-	printf("%s", str);
+	printf("%s\n", str);
 	exit(EXIT_FAILURE);
 }
 

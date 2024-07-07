@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 20:04:22 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:35:55 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void __death(t_terms *table)
 
 static void	data_init(t_terms *table)
 {
-	printf("number of philos is %d", table->philo_nbr);
+	// printf("number of philos is %d", table->philo_nbr);
 	int	i;
 
 	i = 0;
@@ -62,13 +62,14 @@ t_terms	*terms_parse(int argc, char **argv)
 	t_terms *table = safe_malloc(sizeof(t_terms));
 
 	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
-	printf("number of philos is %d", table->philo_nbr);
-	
+	// printf("number of philos is %d", table->philo_nbr);
+
 	if (table->philo_nbr > PHILO_MAX)
 	{
 		printf("Maximum count of philos is %d\n", PHILO_MAX);
 		exit(EXIT_FAILURE);
 	}
+	
 	table->time_to_die = ft_atolong(argv[TIME_TO_DIE]) * MILLISECONDS;
 	table->time_to_eat = ft_atolong(argv[TIME_TO_EAT]) * MILLISECONDS;
 	table->time_to_sleep = ft_atolong(argv[TIME_TO_SLEEP]) * MILLISECONDS;
@@ -88,6 +89,7 @@ t_terms	*terms_parse(int argc, char **argv)
 	}
 	else
 		table->nbr_limit_meals = -1;
-	// data_init(table);
+
+	data_init(table);
 	return table;
 }
