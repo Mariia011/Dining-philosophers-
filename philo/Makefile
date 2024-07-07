@@ -11,7 +11,7 @@ OBJS = $(patsubst %.c, %.o, $(CFILES))
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -fsanitize=address -o $@
+	$(CC) $(OBJS) -o $@
 
 ./src/%.o : ./src/%.c
 	$(CC) $< -c -o $@

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 18:22:56 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 20:32:42 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,23 @@ void	start_dinner(t_terms *table)
 		return ;
 	while (i < table->philo_nbr)
 	{
-		__thread_create(&table->philos[i].thread, dinner_simulation,
-			table->philos + i);
-		printf("thread philo %d created\n", i + 1);
+		__thread_create(&table->philos[i].thread, dinner_simulation, table->philos + i);
+		// printf("thread philo %d created\n", i + 1);
 		i++;
 	}
-	 __thread_create(&(table->pahest), pahest_simulation, table);
-	 printf("pahest has been created");
+	// __thread_create(&(table->pahest), pahest_simulation, table);
+	// printf("pahest has been created\n");
 	shift_flag(&table->table_mutex, &table->if_ready, true);
+	
+	set_timeval(&table->table_mutex, &table->start_simulation);
+
+	i = 0;
 	while (i < table->philo_nbr)
 	{
 		__thread_join(&table->philos[i].thread);
-		printf("done\n");
 		i++;
 	}
+	printf("done\n");
 	shift_flag(&table->table_mutex, &table->the_end, true);
-	__thread_join(&(table->pahest));
+	// __thread_join(&(table->pahest));
 }
