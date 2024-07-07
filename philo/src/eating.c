@@ -6,7 +6,7 @@
 /*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:38:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 20:36:37 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:02:04 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ void	eat(t_philo *philo)
 	philo_status(TAKE_FORK, philo);
 	__lock(&(forks[second]->fork));
 	philo_status(TAKE_FORK, philo);
+	
 	philo->meal_counter++;
+
 	philo_status(EAT, philo);
 	ft_usleep(philo->table->time_to_eat, philo->table);
 	//write a function to set a timestamp
 	set_timeval(&(philo->philo_mutex), &philo->last_meal_time);
 	
-	if (has_remained(philo->table->nbr_limit_meals)) 
+	if (has_remained(philo->table->nbr_limit_meals) && philo->meal_counter == philo->table->nbr_limit_meals)
 	{
 		shift_flag(&(philo->philo_mutex), &(philo->is_full), true);
 	}

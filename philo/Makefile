@@ -29,6 +29,7 @@ fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
+	clear
 
 oda : fclean
 	git add .

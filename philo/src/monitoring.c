@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 17:06:10 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/07 22:05:26 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,15 @@ bool	is_finished(t_terms *table)
 
 bool all_threads_running(t_mtx *mutex, t_terms *table)
 {
+	bool res;
+	
 	__lock(mutex);
-	if(table->active_threads == table->philo_nbr)
-		return true;
+
+	res = (table->active_threads == table->philo_nbr);
+	
 	__unlock(mutex);
-	return false;
+	
+	return res;
 }
 
 void	*pahest_simulation(void *data)

@@ -6,7 +6,7 @@
 /*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 20:35:55 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/07 21:55:55 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_terms	*terms_parse(int argc, char **argv)
 	t_terms *table = safe_malloc(sizeof(t_terms));
 
 	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
-	// printf("number of philos is %d", table->philo_nbr);
+	// printf("number of philos is %d\n", table->philo_nbr);
 
 	if (table->philo_nbr > PHILO_MAX)
 	{
