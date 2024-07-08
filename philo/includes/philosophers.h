@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 21:34:33 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:32:50 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,22 @@ struct					s_terms
 	pthread_t			pahest;
 	t_fork				*forks;
 	t_philo				*philos;
-	t_mtx table_mutex; // to avoid races while readin data
+	t_mtx 				table_mutex; // to avoid races while readin data
 	t_mtx				write_mutex;
 };
+
+
+// tyom
+int	get_int(t_mtx *mutex, int *src);
+
+
 
 // boolean
 // bool					is_finished(t_terms *table);
 void					shift_flag(t_mtx *mtx, bool *dest, const bool src);
 bool					is_full(t_philo *philo);
 bool					is_finished(t_terms *table);
-bool					get_bool(t_mtx *mutex, bool src);
+bool					get_bool(t_mtx *mutex, bool *src);
 
 
 // mutex wrappers
@@ -117,7 +123,7 @@ t_terms					*terms_parse(int argc, char **argv);
 
 // dinner helpers
 // void					wait_till_all_ready(t_terms *table);
-void					*get_any_val(t_mtx *mutex, void *src);
+long					get_long(t_mtx *mutex, long *src);
 void					set_timeval(t_mtx *mutex, long *last_time);
 
 // dinner

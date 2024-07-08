@@ -6,7 +6,7 @@
 /*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:56:49 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 20:25:59 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:41:57 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,33 @@ void	shift_flag(t_mtx *mtx, bool *dest, const bool src) // setters
 	__unlock(mtx);
 }
 
-void	*get_any_val(t_mtx *mutex, void *src) // getters
+int	get_int(t_mtx *mutex, int *src)
 {
-	void	*value;
+	int		value;
 
 	__lock(mutex);
-	value = src;
+	value = *src;
 	__unlock(mutex);
+
 	return (value);
 }
 
-bool get_bool(t_mtx *mutex, bool src) //getters
+long	get_long(t_mtx *mutex, long *src)
+{
+	long		value;
+	__lock(mutex);
+	value = *src;
+	__unlock(mutex);
+
+	return (value);
+}
+
+bool get_bool(t_mtx *mutex, bool *src) //getters
 {
 	bool value;
 
 	__lock(mutex);
-	value = src;
+	value = *src;
 	__unlock(mutex);
 	return (value);
 }

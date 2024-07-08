@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 18:13:03 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:46:56 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ static void	think(t_philo *philo)
 
 static void	wait_till_all_ready(t_terms *table)
 {
-
-	while(false == get_bool(&(table->table_mutex), table->if_ready))
-			;
+	while(false == get_bool(&(table->table_mutex), &table->if_ready));
 }
 
 void	set_timeval(t_mtx *mutex, long *last_time)
@@ -66,8 +64,10 @@ void	*dinner_simulation(void *data)
 	i = 0;
 	wait_till_all_ready(philo->table);
 
-	increase_active_threads(&philo->table->table_mutex,
-		&philo->table->active_threads);
+	set_timeval(&(philo->philo_mutex), &philo->last_meal_time);
+	
+	increase_active_threads(&philo->table->table_mutex, &philo->table->active_threads);
+
 	__desynchro(philo);
 	while (!is_finished(philo->table))
 	{
@@ -109,11 +109,11 @@ void	start_dinner(t_terms *table)
 		__thread_create(&table->philos[i].thread, dinner_simulation, table->philos + i);
 		i++;
 	}
-	__thread_create(&(table->pahest), pahest_simulation, table);
 	// printf("pahest has been created\n");
+	set_timeval(&table->table_mutex, &table->start_simulation);
 	shift_flag(&table->table_mutex, &table->if_ready, true);
 
-	set_timeval(&table->table_mutex, &table->start_simulation);
+	__thread_create(&(table->pahest), pahest_simulation, table);
 
 	i = 0;
 	while (i < table->philo_nbr)

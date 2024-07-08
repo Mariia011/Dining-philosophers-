@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 17:20:06 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:48:10 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 static bool	philo_died(t_philo *philo)
 {
-	t_time	val;
-	t_time	max;
+	t_time	val = 0;
 
 	if (is_full(philo))
 		return (false);
-	val = get_time(MILLISECONDS) - (long)get_any_val(&philo->philo_mutex,
-			&philo->last_meal_time);
-	max = philo->table->time_to_die;
-	if (val > max)
-		return (true);
-	return (false);
+
+	val = get_time(MILLISECONDS) - get_long(&philo->philo_mutex, &philo->last_meal_time);
+
+	return (val > philo->table->time_to_die / MILLISECONDS);
 }
 
 bool	is_finished(t_terms *table)
@@ -37,17 +34,9 @@ bool	is_finished(t_terms *table)
 	return (res);
 }
 
-bool all_threads_running(t_mtx *mutex, t_terms *table)
+static bool all_threads_running(t_terms *table)
 {
-	bool res;
-
-	__lock(mutex);
-
-	res = (table->active_threads == table->philo_nbr);
-
-	__unlock(mutex);
-
-	return res;
+	return  (get_int(&table->table_mutex, &table->active_threads) == table->philo_nbr);
 }
 
 void	*pahest_simulation(void *data)
@@ -56,13 +45,14 @@ void	*pahest_simulation(void *data)
 	int i;
 
 	table = (t_terms *)data;
-	while (!all_threads_running(&table->table_mutex, table))
-		;
+	while (!all_threads_running(table));
+
 	while (!is_finished(table))
 	{
 		i = 0;
 		while (i < table->philo_nbr && !is_finished(table))
 		{
+
 			if (philo_died(table->philos))
 			{
 				shift_flag(&table->table_mutex, &table->the_end, true);

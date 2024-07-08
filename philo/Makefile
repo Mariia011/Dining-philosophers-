@@ -1,5 +1,7 @@
 NAME = philo
-CC = gcc
+DEBUG = -fsanitize=thread
+
+CC = gcc $(DEBUG)
 # BONUS = philo_bonus
 # PATH = /philo_bonus/main.c
 

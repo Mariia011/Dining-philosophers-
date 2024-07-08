@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroys.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:10:53 by aamirkha          #+#    #+#             */
-/*   Updated: 2024/07/08 17:52:32 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:05:11 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void table_destroy(t_terms **table_ptr)
         fork_destroy(&(table->forks[i]));
         i++;
     }
-        mutex_destroy(&(table->table_mutex));
-        mutex_destroy(&(table->write_mutex));
-        free(table->forks);
-        free(table->philos);
-        free(table);
-        *table_ptr = NULL;
+    mutex_destroy(&(table->table_mutex));
+    mutex_destroy(&(table->write_mutex));
+    free(table->forks);
+    free(table->philos);
+    free(table);
+    *table_ptr = NULL;
 }
