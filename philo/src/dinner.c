@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 22:03:54 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:13:03 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	think(t_philo *philo)
 
 static void	wait_till_all_ready(t_terms *table)
 {
-	
+
 	while(false == get_bool(&(table->table_mutex), table->if_ready))
 			;
 }
@@ -65,7 +65,7 @@ void	*dinner_simulation(void *data)
 	philo = (t_philo *)data;
 	i = 0;
 	wait_till_all_ready(philo->table);
-	
+
 	increase_active_threads(&philo->table->table_mutex,
 		&philo->table->active_threads);
 	__desynchro(philo);
@@ -79,6 +79,22 @@ void	*dinner_simulation(void *data)
 	}
 	return (NULL);
 }
+
+static void type_message(t_terms *table)
+{
+	int i = 0;
+	while(i < table->philo_nbr)
+	{
+		if(table->philos[i].is_full == false)
+		{
+			printf("philo %d has died of starvation (oxormi)", table->philos[i].id);
+			break ;
+		}
+		i++;
+	}
+	printf("philos are fed up");
+}
+
 
 void	start_dinner(t_terms *table)
 {
@@ -96,7 +112,7 @@ void	start_dinner(t_terms *table)
 	__thread_create(&(table->pahest), pahest_simulation, table);
 	// printf("pahest has been created\n");
 	shift_flag(&table->table_mutex, &table->if_ready, true);
-	
+
 	set_timeval(&table->table_mutex, &table->start_simulation);
 
 	i = 0;
@@ -105,7 +121,7 @@ void	start_dinner(t_terms *table)
 		__thread_join(&table->philos[i].thread);
 		i++;
 	}
-	printf("done\n");
 	shift_flag(&table->table_mutex, &table->the_end, true);
-	// __thread_join(&(table->pahest));
+	__thread_join(&(table->pahest));
+	type_message(table);
 }

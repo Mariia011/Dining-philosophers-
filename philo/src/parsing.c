@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 21:55:55 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:11:58 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	philo_init(t_terms *table)
 		table->philos[i].table = table;
 		table->philos[i].right_fork = &table->forks[i];
 		table->philos[i].left_fork = &table->forks[(table->philo_nbr + i - 1) % table->philo_nbr];
+		mutex_init(&(table->philos[i].philo_mutex));
+		table->philos[i].last_meal_time = 0;
 		i++;
 	}
 }
@@ -46,7 +48,7 @@ static void	data_init(t_terms *table)
 	table->active_threads = 0;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
-	while (i < table->philo_nbr) 
+	while (i < table->philo_nbr)
 	{
 		mutex_init(&table->forks[i].fork);
 		table->forks[i].fork_id = i + 1;
@@ -69,7 +71,7 @@ t_terms	*terms_parse(int argc, char **argv)
 		printf("Maximum count of philos is %d\n", PHILO_MAX);
 		exit(EXIT_FAILURE);
 	}
-	
+
 	table->time_to_die = ft_atolong(argv[TIME_TO_DIE]) * MILLISECONDS;
 	table->time_to_eat = ft_atolong(argv[TIME_TO_EAT]) * MILLISECONDS;
 	table->time_to_sleep = ft_atolong(argv[TIME_TO_SLEEP]) * MILLISECONDS;

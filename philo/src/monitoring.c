@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 22:06:50 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:20:06 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ bool	is_finished(t_terms *table)
 bool all_threads_running(t_mtx *mutex, t_terms *table)
 {
 	bool res;
-	
+
 	__lock(mutex);
 
 	res = (table->active_threads == table->philo_nbr);
-	
+
 	__unlock(mutex);
-	
+
 	return res;
 }
 

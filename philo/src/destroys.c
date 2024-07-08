@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 21:10:53 by aamirkha          #+#    #+#             */
-/*   Updated: 2024/07/07 21:34:27 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:52:32 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void philo_destroy(t_philo *philo)
 }
 
 void table_destroy(t_terms **table_ptr)
-{   
+{
     int i = 0;
     t_terms *table = *table_ptr;
     while(i < table->philo_nbr)
