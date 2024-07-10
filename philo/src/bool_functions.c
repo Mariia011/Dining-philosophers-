@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bool_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:56:49 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 19:41:57 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:56:40 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,25 @@ void	shift_flag(t_mtx *mtx, bool *dest, const bool src) // setters
 
 int	get_int(t_mtx *mutex, int *src)
 {
-	int		value;
+	int	value;
 
 	__lock(mutex);
 	value = *src;
 	__unlock(mutex);
-
 	return (value);
 }
 
 long	get_long(t_mtx *mutex, long *src)
 {
-	long		value;
+	long	value;
+
 	__lock(mutex);
 	value = *src;
 	__unlock(mutex);
-
 	return (value);
 }
 
-bool get_bool(t_mtx *mutex, bool *src) //getters
+bool	get_bool(t_mtx *mutex, bool *src) // getters
 {
 	bool value;
 
@@ -59,4 +58,3 @@ bool	is_full(t_philo *philo)
 	__unlock(&philo->philo_mutex);
 	return (res);
 }
-

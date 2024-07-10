@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 17:50:57 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:56:59 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	main(int argc, char **argv)
 {
-	t_terms			*table;
+	t_terms	*table;
 
 	if (argc != 5 && argc != 6)
 		return (error_exit("Wrong count of argc"));
-
 	table = terms_parse(argc, argv);
 	start_dinner(table);
 	table_destroy(&table);

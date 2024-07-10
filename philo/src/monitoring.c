@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 19:48:10 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:57:03 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static bool	philo_died(t_philo *philo)
 {
-	t_time	val = 0;
+	t_time	val;
 
+	val = 0;
 	if (is_full(philo))
 		return (false);
-
-	val = get_time(MILLISECONDS) - get_long(&philo->philo_mutex, &philo->last_meal_time);
-
+	val = get_time(MILLISECONDS) - get_long(&philo->philo_mutex,
+			&philo->last_meal_time);
 	return (val > philo->table->time_to_die / MILLISECONDS);
 }
 
@@ -34,29 +34,29 @@ bool	is_finished(t_terms *table)
 	return (res);
 }
 
-static bool all_threads_running(t_terms *table)
+static bool	all_threads_running(t_terms *table)
 {
-	return  (get_int(&table->table_mutex, &table->active_threads) == table->philo_nbr);
+	return (get_int(&table->table_mutex,
+			&table->active_threads) == table->philo_nbr);
 }
 
 void	*pahest_simulation(void *data)
 {
 	t_terms	*table;
-	int i;
+	int		i;
 
 	table = (t_terms *)data;
-	while (!all_threads_running(table));
-
+	while (!all_threads_running(table))
+		;
 	while (!is_finished(table))
 	{
 		i = 0;
 		while (i < table->philo_nbr && !is_finished(table))
 		{
-
-			if (philo_died(table->philos))
+			if (philo_died(table->philos + i))
 			{
-				shift_flag(&table->table_mutex, &table->the_end, true);
 				philo_status(DIE, &table->philos[i]);
+				shift_flag(&table->table_mutex, &table->the_end, true);
 			}
 			i++;
 		}

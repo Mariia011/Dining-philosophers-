@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 21:55:34 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:57:10 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ long	ft_atolong(char *str)
 	i = 0;
 	value = 0;
 	str = valid_input(str);
-	
-	while (str[i])   
+	while (str[i])
 	{
 		value = (value * 10) + (str[i] - '0');
 		i++;
 	}
-	
 	if (value > INT_MAX || value < 0)
 		return (error_exit("an INT_MAX was the LIMIT"));
 	return (value);
@@ -38,7 +36,8 @@ char	*valid_input(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\r' || str[i] == '\n'))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\r'
+			|| str[i] == '\n'))
 		i++;
 	if (str[i] == '+')
 		i++;

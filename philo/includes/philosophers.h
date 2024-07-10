@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 19:32:50 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:54:56 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ struct					s_terms
 };
 
 
-// tyom
-int	get_int(t_mtx *mutex, int *src);
 
 
 
@@ -102,7 +100,6 @@ bool					is_full(t_philo *philo);
 bool					is_finished(t_terms *table);
 bool					get_bool(t_mtx *mutex, bool *src);
 
-
 // mutex wrappers
 void					__lock(t_mtx *mutex);
 void					__unlock(t_mtx *mutex);
@@ -111,28 +108,28 @@ void					mutex_destroy(t_mtx *mutex);
 
 // wrappers
 void					*safe_malloc(size_t bytes);
-void					table_init(t_terms *table, char **argv);
+void	wait_till_all_ready(t_terms *table);
+void	think(t_philo *philo);
+void	philo_sleep(t_philo *philo);
 
 // parsing helpers
 long					ft_atolong(char *str);
 char					*valid_input(char *str);
-
+int	get_int(t_mtx *mutex, int *src);¿
 // parsing
 void					philo_to_thread(t_terms *table);
 t_terms					*terms_parse(int argc, char **argv);
 
 // dinner helpers
-// void					wait_till_all_ready(t_terms *table);
 long					get_long(t_mtx *mutex, long *src);
 void					set_timeval(t_mtx *mutex, long *last_time);
 
 // dinner
 void					eat(t_philo *philo);
-
 void					start_dinner(t_terms *table);
-
 void					*dinner_simulation(void *data);
 void					*pahest_simulation(void *data);
+void calculate_think(t_philo *philo);
 
 // thread wrappers
 void					increase_active_threads(t_mtx *mutex, int *val);

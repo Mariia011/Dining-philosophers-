@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   status_wrappers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:01:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 20:20:34 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:22:23 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,19 @@ void	philo_status(t_code philo_status, t_philo *philo)
 	t_time	now;
 
 	__lock(&(philo->table->write_mutex));
-	if (is_finished(philo->table))
-		return ;
-	now = get_time(MILLISECONDS) - philo->table->start_simulation;
-	if (philo_status == TAKE_FORK)
-		printf("%ld philo %d has taken a fork\n", now, philo->id);
-	else if (EAT == philo_status)
-		__eat(philo, now);
-	else if (SLEEP == philo_status)
-		printf("%ld %d is sleeping\n", now, philo->id);
-	else if (THINK == philo_status)
-		printf("%ld %d is thinking\n", now, philo->id);
-	else if (DIE == philo_status)
-		__die(philo, now);
+	if (!is_finished(philo->table))
+	{
+		now = get_time(MILLISECONDS) - philo->table->start_simulation;
+		if (philo_status == TAKE_FORK)
+			printf("%ld philo %d has taken a fork\n", now, philo->id);
+		else if (EAT == philo_status)
+			__eat(philo, now);
+		else if (SLEEP == philo_status)
+			printf("%ld %d is sleeping\n", now, philo->id);
+		else if (THINK == philo_status)
+			printf("%ld %d is thinking\n", now, philo->id);
+		else if (DIE == philo_status)
+			__die(philo, now);
+	}
 	__unlock(&(philo->table->write_mutex));
 }

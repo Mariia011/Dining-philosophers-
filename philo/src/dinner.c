@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/08 19:46:56 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:56:48 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
-
-static void	philo_sleep(t_philo *philo)
-{
-	philo_status(SLEEP, philo);
-	ft_usleep(philo->table->time_to_sleep, philo->table);
-}
-
-static void calculate_think(t_philo *philo)
-{
-	long	val;
-
-	val = philo->table->time_to_eat * 2 - philo->table->time_to_sleep;
-	if (val > 0)
-		ft_usleep(val / 2, philo->table);
-}
 
 static void	__desynchro(t_philo *philo)
 {
@@ -35,17 +20,13 @@ static void	__desynchro(t_philo *philo)
 		calculate_think(philo);
 }
 
-static void	think(t_philo *philo)
+void	calculate_think(t_philo *philo)
 {
-	philo_status(THINK, philo);
-	if (philo->table->philo_nbr % 2 == 0)
-		return ;
- 	calculate_think(philo);
-}
+	long	val;
 
-static void	wait_till_all_ready(t_terms *table)
-{
-	while(false == get_bool(&(table->table_mutex), &table->if_ready));
+	val = philo->table->time_to_eat * 2 - philo->table->time_to_sleep;
+	if (val > 0)
+		ft_usleep(val / 2, philo->table);
 }
 
 void	set_timeval(t_mtx *mutex, long *last_time)
@@ -63,38 +44,18 @@ void	*dinner_simulation(void *data)
 	philo = (t_philo *)data;
 	i = 0;
 	wait_till_all_ready(philo->table);
-
 	set_timeval(&(philo->philo_mutex), &philo->last_meal_time);
-	
-	increase_active_threads(&philo->table->table_mutex, &philo->table->active_threads);
-
+	increase_active_threads(&philo->table->table_mutex,
+		&philo->table->active_threads);
 	__desynchro(philo);
-	while (!is_finished(philo->table))
+	while (!is_finished(philo->table) && !is_full(philo))
 	{
-		if (is_full(philo))
-			break ;
 		eat(philo);
 		philo_sleep(philo);
 		think(philo);
 	}
 	return (NULL);
 }
-
-static void type_message(t_terms *table)
-{
-	int i = 0;
-	while(i < table->philo_nbr)
-	{
-		if(table->philos[i].is_full == false)
-		{
-			printf("philo %d has died of starvation (oxormi)", table->philos[i].id);
-			break ;
-		}
-		i++;
-	}
-	printf("philos are fed up");
-}
-
 
 void	start_dinner(t_terms *table)
 {
@@ -103,25 +64,22 @@ void	start_dinner(t_terms *table)
 	i = 0;
 	if (0 == table->philo_nbr)
 		return ;
-
 	while (i < table->philo_nbr)
 	{
-		__thread_create(&table->philos[i].thread, dinner_simulation, table->philos + i);
+		__thread_create(&table->philos[i].thread, dinner_simulation,
+			table->philos + i);
 		i++;
 	}
 	// printf("pahest has been created\n");
 	set_timeval(&table->table_mutex, &table->start_simulation);
 	shift_flag(&table->table_mutex, &table->if_ready, true);
-
 	__thread_create(&(table->pahest), pahest_simulation, table);
-
 	i = 0;
 	while (i < table->philo_nbr)
 	{
-		__thread_join(&table->philos[i].thread);
+		__thread_join(&(table->philos[i].thread));
 		i++;
 	}
 	shift_flag(&table->table_mutex, &table->the_end, true);
 	__thread_join(&(table->pahest));
-	type_message(table);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:31:55 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 20:19:20 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:56:55 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	thread_error(int status, t_code code)
 		error_exit("The value specified by thread is not joinable\n");
 	else if (ESRCH == status)
 		error_exit("No thread could be found corresponding to that specified by"
-		"the given threa d ID, thread.");
+					"the given threa d ID, thread.");
 	else if (EDEADLK == status)
 		error_exit("A deadlock was detected or the value of thread specifies"
-		 "the calling thread.");
+					"the calling thread.");
 }
 
 void	handle_mutex_error(int status, t_code code)
