@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:56:49 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:56:40 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:04:23 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ long	get_long(t_mtx *mutex, long *src)
 
 bool	get_bool(t_mtx *mutex, bool *src) // getters
 {
-	bool value;
+	bool	value;
 
 	__lock(mutex);
 	value = *src;

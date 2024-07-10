@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 14:10:14 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:57:19 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:05:52 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	safe_thread_handle(pthread_t *thread, t_fptr foo, void *data,
 	else if (DETACH == code)
 		thread_error(pthread_detach(*thread), code);
 	else
-		error_exit("Wrong code for thread_handle: use <CREATE> <JOIN> <DETACH>");
+		error_exit("Wrong code for thread_handle:"
+			"use <CREATE> <JOIN> <DETACH>");
 }
 
 void	increase_active_threads(t_mtx *mutex, int *val)

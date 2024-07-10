@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:54:56 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:03:37 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,9 @@ struct					s_terms
 	pthread_t			pahest;
 	t_fork				*forks;
 	t_philo				*philos;
-	t_mtx 				table_mutex; // to avoid races while readin data
+	t_mtx				table_mutex;
 	t_mtx				write_mutex;
 };
-
-
-
-
 
 // boolean
 // bool					is_finished(t_terms *table);
@@ -108,14 +104,14 @@ void					mutex_destroy(t_mtx *mutex);
 
 // wrappers
 void					*safe_malloc(size_t bytes);
-void	wait_till_all_ready(t_terms *table);
-void	think(t_philo *philo);
-void	philo_sleep(t_philo *philo);
+void					wait_till_all_ready(t_terms *table);
+void					think(t_philo *philo);
+void					philo_sleep(t_philo *philo);
 
 // parsing helpers
 long					ft_atolong(char *str);
 char					*valid_input(char *str);
-int	get_int(t_mtx *mutex, int *src);¿
+int						get_int(t_mtx *mutex, int *src);
 // parsing
 void					philo_to_thread(t_terms *table);
 t_terms					*terms_parse(int argc, char **argv);
@@ -129,7 +125,7 @@ void					eat(t_philo *philo);
 void					start_dinner(t_terms *table);
 void					*dinner_simulation(void *data);
 void					*pahest_simulation(void *data);
-void calculate_think(t_philo *philo);
+void					calculate_think(t_philo *philo);
 
 // thread wrappers
 void					increase_active_threads(t_mtx *mutex, int *val);
@@ -146,8 +142,8 @@ long					get_time(t_timecode time_code);
 void					ft_usleep(t_time usec, t_terms *table);
 // status
 void					philo_status(t_code philo_status, t_philo *philo);
-//destroys
-void table_destroy(t_terms **table_ptr);
+// destroys
+void					table_destroy(t_terms **table_ptr);
 
 enum					e_timecode
 {

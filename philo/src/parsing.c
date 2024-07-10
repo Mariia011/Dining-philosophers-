@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:57:13 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:02:56 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	data_init(t_terms *table)
 {
 	int	i;
 
-	// printf("number of philos is %d", table->philo_nbr);
 	i = 0;
 	table->the_end = false;
 	table->if_ready = false;
@@ -66,7 +65,6 @@ t_terms	*terms_parse(int argc, char **argv)
 
 	table = safe_malloc(sizeof(t_terms));
 	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
-	// printf("number of philos is %d\n", table->philo_nbr);
 	if (table->philo_nbr > PHILO_MAX)
 	{
 		printf("Maximum count of philos is %d\n", PHILO_MAX);

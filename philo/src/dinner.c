@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:56:48 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:04:35 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	start_dinner(t_terms *table)
 			table->philos + i);
 		i++;
 	}
-	// printf("pahest has been created\n");
 	set_timeval(&table->table_mutex, &table->start_simulation);
 	shift_flag(&table->table_mutex, &table->if_ready, true);
 	__thread_create(&(table->pahest), pahest_simulation, table);
