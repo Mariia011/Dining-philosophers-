@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:57:03 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:05:44 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static bool	all_threads_running(t_terms *table)
 			&table->active_threads) == table->philo_nbr);
 }
 
-void	*pahest_simulation(void *data)
+void	*oxrannik_simulation(void *data)
 {
 	t_terms	*table;
 	int		i;

@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 20:02:56 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:22:47 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+void	__death(t_terms *table)
+{
+	free(table);
+	error_exit("Bad argument values");
+}
+
+static void over_max_philo(void)
+{
+	printf("Maximum count of philos is %d\n", PHILO_MAX);
+	exit(EXIT_FAILURE);
+}
 
 static void	philo_init(t_terms *table)
 {
@@ -23,19 +35,30 @@ static void	philo_init(t_terms *table)
 		table->philos[i].is_full = false;
 		table->philos[i].meal_counter = 0;
 		table->philos[i].table = table;
+		mutex_init(&table->forks[i].fork);
+		mutex_init(&(table->philos[i].philo_mutex));
+		table->forks[i].fork_id = i + 1;
 		table->philos[i].right_fork = &table->forks[i];
 		table->philos[i].left_fork = &table->forks[(table->philo_nbr + i - 1)
 			% table->philo_nbr];
-		mutex_init(&(table->philos[i].philo_mutex));
 		table->philos[i].last_meal_time = 0;
 		i++;
 	}
 }
 
-void	__death(t_terms *table)
+void *one_philo_case(void *data)
 {
-	free(table);
-	error_exit("Bad argument values");
+	t_philo	*philo;
+	philo = (t_philo *)data;
+
+	wait_till_all_ready(philo->table);
+	set_timeval(&philo->table->table_mutex, &philo->last_meal_time);
+	increase_active_threads(&(philo->table->table_mutex), &(philo->table->active_threads));
+	philo_status(TAKE_FORK, philo);
+	printf("i'm here \n");
+	while (!is_finished(philo->table))
+		;
+	return (NULL);
 }
 
 static void	data_init(t_terms *table)
@@ -48,12 +71,6 @@ static void	data_init(t_terms *table)
 	table->active_threads = 0;
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
-	while (i < table->philo_nbr)
-	{
-		mutex_init(&table->forks[i].fork);
-		table->forks[i].fork_id = i + 1;
-		i++;
-	}
 	mutex_init(&table->table_mutex);
 	mutex_init(&table->write_mutex);
 	philo_init(table);
@@ -66,10 +83,7 @@ t_terms	*terms_parse(int argc, char **argv)
 	table = safe_malloc(sizeof(t_terms));
 	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
 	if (table->philo_nbr > PHILO_MAX)
-	{
-		printf("Maximum count of philos is %d\n", PHILO_MAX);
-		exit(EXIT_FAILURE);
-	}
+		over_max_philo();
 	table->time_to_die = ft_atolong(argv[TIME_TO_DIE]) * MILLISECONDS;
 	table->time_to_eat = ft_atolong(argv[TIME_TO_EAT]) * MILLISECONDS;
 	table->time_to_sleep = ft_atolong(argv[TIME_TO_SLEEP]) * MILLISECONDS;

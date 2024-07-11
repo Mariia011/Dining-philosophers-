@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 20:03:37 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:08:06 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ struct					s_terms
 	t_time				start_simulation;
 	bool				the_end;
 	bool				if_ready;
-	pthread_t			pahest;
+	pthread_t			oxrannik;
 	t_fork				*forks;
 	t_philo				*philos;
 	t_mtx				table_mutex;
@@ -113,18 +113,18 @@ long					ft_atolong(char *str);
 char					*valid_input(char *str);
 int						get_int(t_mtx *mutex, int *src);
 // parsing
-void					philo_to_thread(t_terms *table);
 t_terms					*terms_parse(int argc, char **argv);
 
 // dinner helpers
 long					get_long(t_mtx *mutex, long *src);
 void					set_timeval(t_mtx *mutex, long *last_time);
+void					*one_philo_case(void *data);
 
 // dinner
 void					eat(t_philo *philo);
 void					start_dinner(t_terms *table);
 void					*dinner_simulation(void *data);
-void					*pahest_simulation(void *data);
+void					*oxrannik_simulation(void *data);
 void					calculate_think(t_philo *philo);
 
 // thread wrappers

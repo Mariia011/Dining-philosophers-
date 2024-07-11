@@ -6,13 +6,13 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:56:49 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 20:04:23 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:59:19 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	shift_flag(t_mtx *mtx, bool *dest, const bool src) // setters
+void	shift_flag(t_mtx *mtx, bool *dest, const bool src)
 {
 	__lock(mtx);
 	*dest = src;
@@ -39,7 +39,7 @@ long	get_long(t_mtx *mutex, long *src)
 	return (value);
 }
 
-bool	get_bool(t_mtx *mutex, bool *src) // getters
+bool	get_bool(t_mtx *mutex, bool *src)
 {
 	bool	value;
 

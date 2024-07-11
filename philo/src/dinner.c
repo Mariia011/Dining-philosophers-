@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 20:04:35 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:07:01 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void	start_dinner(t_terms *table)
 	i = 0;
 	if (0 == table->philo_nbr)
 		return ;
+	if(table->philo_nbr == 1)
+		__thread_create(&table->philos[0].thread, one_philo_case,
+		&(table->philos[0]));
 	while (i < table->philo_nbr)
 	{
 		__thread_create(&table->philos[i].thread, dinner_simulation,
@@ -72,7 +75,7 @@ void	start_dinner(t_terms *table)
 	}
 	set_timeval(&table->table_mutex, &table->start_simulation);
 	shift_flag(&table->table_mutex, &table->if_ready, true);
-	__thread_create(&(table->pahest), pahest_simulation, table);
+	__thread_create(&(table->oxrannik), oxrannik_simulation, table);
 	i = 0;
 	while (i < table->philo_nbr)
 	{
@@ -80,5 +83,5 @@ void	start_dinner(t_terms *table)
 		i++;
 	}
 	shift_flag(&table->table_mutex, &table->the_end, true);
-	__thread_join(&(table->pahest));
+	__thread_join(&(table->oxrannik));
 }
