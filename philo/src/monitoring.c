@@ -6,13 +6,13 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:48:03 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/11 14:05:44 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:52:47 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-static bool	philo_died(t_philo *philo)
+bool	philo_died(t_philo *philo)
 {
 	t_time	val;
 

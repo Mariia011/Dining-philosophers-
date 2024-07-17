@@ -1,9 +1,7 @@
 NAME = philo
-DEBUG = -fsanitize=thread
+DEBUG = -fsanitize=address
 
 CC = gcc $(DEBUG)
-# BONUS = philo_bonus
-# PATH = /philo_bonus/main.c
 
 # -Wall -Wextra -Werror
 
@@ -36,8 +34,5 @@ oda : fclean
 	git add .
 	git commit -m "oda"
 	git push
-
-# bonus : $(BONUS)
-# $(BONUS) : $(CC) $(PATH)
 
 .PHONY : all clean fclean re oda

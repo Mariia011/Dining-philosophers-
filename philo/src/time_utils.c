@@ -6,11 +6,18 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:18:37 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/05 18:02:14 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:38:42 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+void	set_timeval(t_mtx *mutex, long *last_time)
+{
+	__lock(mutex);
+	*last_time = get_time(MILLISECONDS);
+	__unlock(mutex);
+}
 
 long	get_time(t_timecode time_code)
 {

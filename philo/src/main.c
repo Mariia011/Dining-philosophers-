@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:56:59 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:52:22 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,15 @@ int	main(int argc, char **argv)
 	if (argc != 5 && argc != 6)
 		return (error_exit("Wrong count of argc"));
 	table = terms_parse(argc, argv);
+	if (NULL == table)
+		return (EXIT_FAILURE);
 	start_dinner(table);
 	table_destroy(&table);
 	return (EXIT_SUCCESS);
 }
+
+
+// void __attribute__((destructor)) foo()
+// {
+// 	system("leaks philo");
+// }

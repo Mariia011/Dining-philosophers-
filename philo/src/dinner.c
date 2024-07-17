@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:58:42 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/11 17:07:01 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:45:17 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,6 @@ static void	__desynchro(t_philo *philo)
 		ft_usleep(30 * MILLISECONDS, philo->table);
 	if (philo->table->philo_nbr % 2 != 0 && (philo->id % 2 != 0))
 		calculate_think(philo);
-}
-
-void	calculate_think(t_philo *philo)
-{
-	long	val;
-
-	val = philo->table->time_to_eat * 2 - philo->table->time_to_sleep;
-	if (val > 0)
-		ft_usleep(val / 2, philo->table);
-}
-
-void	set_timeval(t_mtx *mutex, long *last_time)
-{
-	__lock(mutex);
-	*last_time = get_time(MILLISECONDS);
-	__unlock(mutex);
 }
 
 void	*dinner_simulation(void *data)
@@ -57,31 +41,39 @@ void	*dinner_simulation(void *data)
 	return (NULL);
 }
 
-void	start_dinner(t_terms *table)
+static void	join_table(t_terms *table)
 {
 	int	i;
 
-	i = 0;
-	if (0 == table->philo_nbr)
-		return ;
-	if(table->philo_nbr == 1)
-		__thread_create(&table->philos[0].thread, one_philo_case,
-		&(table->philos[0]));
-	while (i < table->philo_nbr)
-	{
-		__thread_create(&table->philos[i].thread, dinner_simulation,
-			table->philos + i);
-		i++;
-	}
-	set_timeval(&table->table_mutex, &table->start_simulation);
-	shift_flag(&table->table_mutex, &table->if_ready, true);
-	__thread_create(&(table->oxrannik), oxrannik_simulation, table);
 	i = 0;
 	while (i < table->philo_nbr)
 	{
 		__thread_join(&(table->philos[i].thread));
 		i++;
 	}
+}
+
+void	start_dinner(t_terms *table)
+{
+	int	i;
+
+	i = 0;
+	if (0 == table->philo_nbr || (table->nbr_limit_meals != -1
+			&& table->nbr_limit_meals < 1))
+		return ;
+	if (table->philo_nbr == 1)
+		__thread_create(&table->philos[0].thread, one_philo_case,
+			&(table->philos[0]));
+	else
+	{
+		while (i++ < table->philo_nbr)
+			__thread_create(&table->philos[i].thread, dinner_simulation,
+				table->philos + i);
+	}
+	set_timeval(&table->table_mutex, &table->start_simulation);
+	shift_flag(&table->table_mutex, &table->if_ready, true);
+	__thread_create(&(table->oxrannik), oxrannik_simulation, table);
+	join_table(table);
 	shift_flag(&table->table_mutex, &table->the_end, true);
 	__thread_join(&(table->oxrannik));
 }

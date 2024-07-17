@@ -6,7 +6,7 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/11 17:08:06 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:30:23 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void					shift_flag(t_mtx *mtx, bool *dest, const bool src);
 bool					is_full(t_philo *philo);
 bool					is_finished(t_terms *table);
 bool					get_bool(t_mtx *mutex, bool *src);
+bool					philo_died(t_philo *philo);
 
 // mutex wrappers
 void					__lock(t_mtx *mutex);
@@ -119,6 +120,7 @@ t_terms					*terms_parse(int argc, char **argv);
 long					get_long(t_mtx *mutex, long *src);
 void					set_timeval(t_mtx *mutex, long *last_time);
 void					*one_philo_case(void *data);
+void					__death(t_terms *table);
 
 // dinner
 void					eat(t_philo *philo);

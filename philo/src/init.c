@@ -6,22 +6,16 @@
 /*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/11 17:22:47 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 17:30:32 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	__death(t_terms *table)
-{
-	free(table);
-	error_exit("Bad argument values");
-}
-
-static void over_max_philo(void)
+static void	over_max_philo(void)
 {
 	printf("Maximum count of philos is %d\n", PHILO_MAX);
-	exit(EXIT_FAILURE);
+	// exit(EXIT_FAILURE);
 }
 
 static void	philo_init(t_terms *table)
@@ -46,16 +40,16 @@ static void	philo_init(t_terms *table)
 	}
 }
 
-void *one_philo_case(void *data)
+void	*one_philo_case(void *data)
 {
 	t_philo	*philo;
-	philo = (t_philo *)data;
 
+	philo = (t_philo *)data;
 	wait_till_all_ready(philo->table);
 	set_timeval(&philo->table->table_mutex, &philo->last_meal_time);
-	increase_active_threads(&(philo->table->table_mutex), &(philo->table->active_threads));
+	increase_active_threads(&(philo->table->table_mutex),
+		&(philo->table->active_threads));
 	philo_status(TAKE_FORK, philo);
-	printf("i'm here \n");
 	while (!is_finished(philo->table))
 		;
 	return (NULL);
@@ -82,23 +76,30 @@ t_terms	*terms_parse(int argc, char **argv)
 
 	table = safe_malloc(sizeof(t_terms));
 	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
-	if (table->philo_nbr > PHILO_MAX)
+	if (table->philo_nbr > PHILO_MAX || table->philo_nbr < 1)
+	{
 		over_max_philo();
+		return (NULL);
+	}
 	table->time_to_die = ft_atolong(argv[TIME_TO_DIE]) * MILLISECONDS;
 	table->time_to_eat = ft_atolong(argv[TIME_TO_EAT]) * MILLISECONDS;
 	table->time_to_sleep = ft_atolong(argv[TIME_TO_SLEEP]) * MILLISECONDS;
 	if (table->time_to_die < (TIME_MIN) || table->time_to_eat < (TIME_MIN)
 		|| table->time_to_sleep < (TIME_MIN))
 	{
-		printf("%ld %ld %ld", table->time_to_eat, table->time_to_sleep,
+		printf("%ld %ld %ld \n", table->time_to_eat, table->time_to_sleep,
 			table->time_to_die);
 		error_exit("Use timestamps major than 60 ms");
+		return (NULL);
 	}
 	if (argc == 6)
 	{
 		table->nbr_limit_meals = ft_atolong(argv[COUNT_OF_MEALS]);
 		if (table->nbr_limit_meals < 0)
+		{
 			__death(table);
+			return (NULL);
+		}
 	}
 	else
 		table->nbr_limit_meals = -1;
