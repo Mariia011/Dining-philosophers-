@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 15:18:37 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 17:38:42 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ long	get_time(t_timecode time_code)
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL) != 0)
-		error_exit("Bad time");
+		error_log("Bad time");
 	if (MILLISECONDS == time_code)
 		return (tv.tv_sec * MILLISECONDS + tv.tv_usec / MILLISECONDS);
 	else if (MICROSECONDS == time_code)
 		return (tv.tv_sec * MICROSECONDS + tv.tv_usec);
 	else
-		error_exit("Wrong input for time val");
+		error_log("Wrong input for time val");
 	return (-1);
 }
 

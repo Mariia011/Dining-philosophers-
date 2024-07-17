@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wrappers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 21:16:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/10 19:56:36 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	*safe_malloc(size_t bytes)
 
 	target = malloc(bytes);
 	if (!target)
-		error_exit("Error with the allocation");
+		error_log("Error with the allocation");
 	return (target);
 }

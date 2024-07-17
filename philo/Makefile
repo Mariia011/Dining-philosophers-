@@ -1,7 +1,7 @@
 NAME = philo
-DEBUG = -fsanitize=address
+DEBUG = -fsanitize=thread
 
-CC = gcc $(DEBUG)
+CC = gcc #$(DEBUG)
 
 # -Wall -Wextra -Werror
 

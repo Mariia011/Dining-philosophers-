@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 17:30:23 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:15:20 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <assert.h>
 
 typedef long			t_time;
 
@@ -136,9 +137,7 @@ void					__thread_detach(pthread_t *thread);
 void					__thread_create(pthread_t *thread, t_fptr foo,
 							void *data);
 // error handling
-int						error_exit(char const *str);
-void					handle_mutex_error(int status, t_code code);
-void					thread_error(int status, t_code code);
+int						error_log(char const *str);
 // time
 long					get_time(t_timecode time_code);
 void					ft_usleep(t_time usec, t_terms *table);

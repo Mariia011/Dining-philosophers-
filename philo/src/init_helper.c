@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 17:39:17 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ long	ft_atolong(char *str)
 		i++;
 	}
 	if (value > INT_MAX || value < 0)
-		return (error_exit("an INT_MAX was the LIMIT"));
+		return (error_log("an INT_MAX was the LIMIT"));
 	return (value);
 }
 
@@ -56,7 +56,7 @@ char	*valid_input(char *str)
 		i++;
 	if (str[i] == '-')
 	{
-		error_exit("Positive values only");
+		error_log("Positive values only");
 		return (NULL);
 	}
 	len = i;
@@ -64,7 +64,7 @@ char	*valid_input(char *str)
 	{
 		if (str[i] < '0' || str[i] > '9')
 		{
-			error_exit("The value contains a non-numerical value");
+			error_log("The value contains a non-numerical value");
 			return (NULL);
 		}
 		i++;

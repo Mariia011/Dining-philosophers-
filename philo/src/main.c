@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 17:52:22 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_terms	*table;
 
 	if (argc != 5 && argc != 6)
-		return (error_exit("Wrong count of argc"));
+		return (error_log("Wrong count of argc"));
 	table = terms_parse(argc, argv);
 	if (NULL == table)
 		return (EXIT_FAILURE);
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 }
 
 
-// void __attribute__((destructor)) foo()
-// {
-// 	system("leaks philo");
-// }
+void __attribute__((destructor)) foo()
+{
+	system("leaks philo");
+}

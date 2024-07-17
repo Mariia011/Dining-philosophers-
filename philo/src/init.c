@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 17:30:32 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:17:06 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	over_max_philo(void)
 {
 	printf("Maximum count of philos is %d\n", PHILO_MAX);
-	// exit(EXIT_FAILURE);
 }
 
 static void	philo_init(t_terms *table)
@@ -89,7 +88,7 @@ t_terms	*terms_parse(int argc, char **argv)
 	{
 		printf("%ld %ld %ld \n", table->time_to_eat, table->time_to_sleep,
 			table->time_to_die);
-		error_exit("Use timestamps major than 60 ms");
+		error_log("Use timestamps major than 60 ms");
 		return (NULL);
 	}
 	if (argc == 6)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex_wrappers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:10:25 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/07 21:20:43 by marikhac         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:12:38 by aamirkha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 static void	safe_mutex_handle(t_mtx *mutex, t_code code)
 {
 	if (code == LOCK)
-		handle_mutex_error(pthread_mutex_lock(mutex), code);
+		assert(pthread_mutex_lock(mutex) == 0);
 	else if (code == UNLOCK)
-		handle_mutex_error(pthread_mutex_unlock(mutex), code);
+		assert(pthread_mutex_unlock(mutex) == 0);
 	else if (code == INIT)
-		handle_mutex_error(pthread_mutex_init(mutex, NULL), code);
+		assert(pthread_mutex_init(mutex, NULL) == 0);
 	else if (code == DESTROY)
-		handle_mutex_error(pthread_mutex_destroy(mutex), code);
-	else
-		error_exit("Mutex was fucked up :3");
+		assert(pthread_mutex_destroy(mutex) == 0);
 }
 
 void	__lock(t_mtx *mutex)
