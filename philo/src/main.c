@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:32 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:30:59 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	main(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-
-void __attribute__((destructor)) foo()
-{
-	system("leaks philo");
-}
+// void __attribute__((destructor)) foo()
+// {
+// 	system("leaks philo");
+// }

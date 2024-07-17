@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:28 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 18:15:20 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:37:04 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ t_terms					*terms_parse(int argc, char **argv);
 long					get_long(t_mtx *mutex, long *src);
 void					set_timeval(t_mtx *mutex, long *last_time);
 void					*one_philo_case(void *data);
-void					__death(t_terms *table);
+t_terms					*__death(t_terms *table);
 
 // dinner
 void					eat(t_philo *philo);

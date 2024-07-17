@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 15:08:39 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 18:17:06 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:39:23 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-static void	over_max_philo(void)
+static t_terms	*over_max_philo(void)
 {
 	printf("Maximum count of philos is %d\n", PHILO_MAX);
+	return (NULL);
 }
 
 static void	philo_init(t_terms *table)
@@ -39,22 +40,7 @@ static void	philo_init(t_terms *table)
 	}
 }
 
-void	*one_philo_case(void *data)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)data;
-	wait_till_all_ready(philo->table);
-	set_timeval(&philo->table->table_mutex, &philo->last_meal_time);
-	increase_active_threads(&(philo->table->table_mutex),
-		&(philo->table->active_threads));
-	philo_status(TAKE_FORK, philo);
-	while (!is_finished(philo->table))
-		;
-	return (NULL);
-}
-
-static void	data_init(t_terms *table)
+static t_terms	*data_init(t_terms *table)
 {
 	int	i;
 
@@ -67,6 +53,20 @@ static void	data_init(t_terms *table)
 	mutex_init(&table->table_mutex);
 	mutex_init(&table->write_mutex);
 	philo_init(table);
+	return (table);
+}
+
+static t_terms	*foo(t_terms *table, int argc, char **argv)
+{
+	if (argc == 6)
+	{
+		table->nbr_limit_meals = ft_atolong(argv[COUNT_OF_MEALS]);
+		if (table->nbr_limit_meals < 0)
+			return (__death(table));
+	}
+	else
+		table->nbr_limit_meals = -1;
+	return (table);
 }
 
 t_terms	*terms_parse(int argc, char **argv)
@@ -76,32 +76,17 @@ t_terms	*terms_parse(int argc, char **argv)
 	table = safe_malloc(sizeof(t_terms));
 	table->philo_nbr = ft_atolong(argv[PHILO_NUMBER]);
 	if (table->philo_nbr > PHILO_MAX || table->philo_nbr < 1)
-	{
-		over_max_philo();
-		return (NULL);
-	}
+		return (over_max_philo());
 	table->time_to_die = ft_atolong(argv[TIME_TO_DIE]) * MILLISECONDS;
 	table->time_to_eat = ft_atolong(argv[TIME_TO_EAT]) * MILLISECONDS;
 	table->time_to_sleep = ft_atolong(argv[TIME_TO_SLEEP]) * MILLISECONDS;
 	if (table->time_to_die < (TIME_MIN) || table->time_to_eat < (TIME_MIN)
 		|| table->time_to_sleep < (TIME_MIN))
 	{
-		printf("%ld %ld %ld \n", table->time_to_eat, table->time_to_sleep,
-			table->time_to_die);
 		error_log("Use timestamps major than 60 ms");
 		return (NULL);
 	}
-	if (argc == 6)
-	{
-		table->nbr_limit_meals = ft_atolong(argv[COUNT_OF_MEALS]);
-		if (table->nbr_limit_meals < 0)
-		{
-			__death(table);
-			return (NULL);
-		}
-	}
-	else
-		table->nbr_limit_meals = -1;
-	data_init(table);
-	return (table);
+	if (foo(table, argc, argv) == NULL)
+		return (NULL);
+	return (data_init(table));
 }

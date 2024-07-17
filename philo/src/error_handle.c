@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:31:55 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:37:11 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ int	error_log(char const *str)
 	return (-1);
 }
 
-void	__death(t_terms *table)
+t_terms	*__death(t_terms *table)
 {
 	free(table);
 	error_log("Bad argument values");
+	return (NULL);
 }

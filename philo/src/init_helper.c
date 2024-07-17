@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init_helper.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aamirkha <aamirkha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marikhac <marikhac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 13:40:35 by marikhac          #+#    #+#             */
-/*   Updated: 2024/07/17 18:15:52 by aamirkha         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:41:36 by marikhac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
+static char	*error_log_wrap(char *msg)
+{
+	error_log(msg);
+	return (NULL);
+}
 
 void	calculate_think(t_philo *philo)
 {
@@ -55,19 +61,28 @@ char	*valid_input(char *str)
 	if (str[i] == '+')
 		i++;
 	if (str[i] == '-')
-	{
-		error_log("Positive values only");
-		return (NULL);
-	}
+		return (error_log_wrap("Positive values only"));
 	len = i;
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
-		{
-			error_log("The value contains a non-numerical value");
-			return (NULL);
-		}
+			return (error_log_wrap("The value contains a non-numerical value"));
 		i++;
 	}
 	return (str + len);
+}
+
+void	*one_philo_case(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	wait_till_all_ready(philo->table);
+	set_timeval(&philo->table->table_mutex, &philo->last_meal_time);
+	increase_active_threads(&(philo->table->table_mutex),
+		&(philo->table->active_threads));
+	philo_status(TAKE_FORK, philo);
+	while (!is_finished(philo->table))
+		;
+	return (NULL);
 }
